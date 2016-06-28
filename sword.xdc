@@ -1,43 +1,96 @@
 ## Clock signal
-set_property -dict { PACKAGE_PIN AC18 IOSTANDARD LVCMOS18 } [get_ports { clk100 }];
-	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports {clk100}];
+#set_property -dict { PACKAGE_PIN AC18 IOSTANDARD LVCMOS18 } [get_ports { CLK }];
+#create_clock -name CLK -period 10.000 [get_ports CLK]
+#create_clock -name GLOBAL_CLK -period 10.000
 
-##Switches
-set_property -dict { PACKAGE_PIN AA10   IOSTANDARD LVCMOS15 } [get_ports { rst }]; #IO_L24N_T3_RS0_15 Sch=sw[0]
-set_property -dict { PACKAGE_PIN AB10   IOSTANDARD LVCMOS15 } [get_ports { sw[1] }]; #IO_L3N_T0_DQS_EMCCLK_14 Sch=sw[1]
-set_property -dict { PACKAGE_PIN AA13   IOSTANDARD LVCMOS15 } [get_ports { sw[2] }]; #IO_L6N_T0_D08_VREF_14 Sch=sw[2]
-set_property -dict { PACKAGE_PIN AA12   IOSTANDARD LVCMOS15 } [get_ports { SW[3] }]; #IO_L13N_T2_MRCC_14 Sch=sw[3]
-#set_property -dict { PACKAGE_PIN Y13    IOSTANDARD LVCMOS15 } [get_ports { SW[4] }]; #IO_L12N_T1_MRCC_14 Sch=sw[4]
-#set_property -dict { PACKAGE_PIN Y12    IOSTANDARD LVCMOS15 } [get_ports { SW[5] }]; #IO_L7N_T1_D10_14 Sch=sw[5]
-#set_property -dict { PACKAGE_PIN AD11   IOSTANDARD LVCMOS15 } [get_ports { SW[6] }]; #IO_L17N_T2_A13_D29_14 Sch=sw[6]
-#set_property -dict { PACKAGE_PIN AD10   IOSTANDARD LVCMOS15 } [get_ports { SW[7] }]; #IO_L5N_T0_D07_14 Sch=sw[7]
-#set_property -dict { PACKAGE_PIN AE10   IOSTANDARD LVCMOS15 } [get_ports { SW[8] }]; #IO_L24N_T3_34 Sch=sw[8]
-#set_property -dict { PACKAGE_PIN AE12   IOSTANDARD LVCMOS15 } [get_ports { SW[9] }]; #IO_25_34 Sch=sw[9]
-#set_property -dict { PACKAGE_PIN AF12   IOSTANDARD LVCMOS15 } [get_ports { SW[10] }]; #IO_L15P_T2_DQS_RDWR_B_14 Sch=sw[10]
-#set_property -dict { PACKAGE_PIN AE8    IOSTANDARD LVCMOS15 } [get_ports { SW[11] }]; #IO_L23P_T3_A03_D19_14 Sch=sw[11]
-#set_property -dict { PACKAGE_PIN AF8    IOSTANDARD LVCMOS15 } [get_ports { SW[12] }]; #IO_L24P_T3_35 Sch=sw[12]
-#set_property -dict { PACKAGE_PIN AE13   IOSTANDARD LVCMOS15 } [get_ports { SW[13] }]; #IO_L20P_T3_A08_D24_14 Sch=sw[13]
-#set_property -dict { PACKAGE_PIN AF13   IOSTANDARD LVCMOS15 } [get_ports { SW[14] }]; #IO_L19N_T3_A09_D25_VREF_14 Sch=sw[14]
-#set_property -dict { PACKAGE_PIN AF10   IOSTANDARD LVCMOS15 } [get_ports { SW[15] }]; #IO_L21P_T3_DQS_14 Sch=sw[15]
+## Global reset
+#set_property -dict "PACKAGE_PIN W13 IOSTANDARD LVCMOS18" [get_ports "RSTN"]
 
-##UART
-#set_property -dict { PACKAGE_PIN L25    IOSTANDARD LVCMOS33 PULLTYPE PULLUP} [get_ports { uart_in }];
-#set_property -dict { PACKAGE_PIN P24    IOSTANDARD LVCMOS33 PULLTYPE PULLUP} [get_ports { uart_out }];
+## Switches
+#set_property -dict "PACKAGE_PIN AA10 IOSTANDARD LVCMOS15" [get_ports "SW[0]"]
+#set_property -dict "PACKAGE_PIN AB10 IOSTANDARD LVCMOS15" [get_ports "SW[1]"]
+#set_property -dict "PACKAGE_PIN AA13 IOSTANDARD LVCMOS15" [get_ports "SW[2]"]
+#set_property -dict "PACKAGE_PIN AA12 IOSTANDARD LVCMOS15" [get_ports "SW[3]"]
+#set_property -dict "PACKAGE_PIN Y13 IOSTANDARD LVCMOS15" [get_ports "SW[4]"]
+#set_property -dict "PACKAGE_PIN Y12 IOSTANDARD LVCMOS15" [get_ports "SW[5]"]
+#set_property -dict "PACKAGE_PIN AD11 IOSTANDARD LVCMOS15" [get_ports "SW[6]"]
+#set_property -dict "PACKAGE_PIN AD10 IOSTANDARD LVCMOS15" [get_ports "SW[7]"]
+#set_property -dict "PACKAGE_PIN AE10 IOSTANDARD LVCMOS15" [get_ports "SW[8]"]
+#set_property -dict "PACKAGE_PIN AE12 IOSTANDARD LVCMOS15" [get_ports "SW[9]"]
+#set_property -dict "PACKAGE_PIN AF12 IOSTANDARD LVCMOS15" [get_ports "SW[10]"]
+#set_property -dict "PACKAGE_PIN AE8 IOSTANDARD LVCMOS15" [get_ports "SW[11]"]
+#set_property -dict "PACKAGE_PIN AF8 IOSTANDARD LVCMOS15" [get_ports "SW[12]"]
+#set_property -dict "PACKAGE_PIN AE13 IOSTANDARD LVCMOS15" [get_ports "SW[13]"]
+#set_property -dict "PACKAGE_PIN AF13 IOSTANDARD LVCMOS15" [get_ports "SW[14]"]
+#set_property -dict "PACKAGE_PIN AF10 IOSTANDARD LVCMOS15" [get_ports "SW[15]"]
 
-set_property -dict { PACKAGE_PIN L25    IOSTANDARD LVCMOS33} [get_ports { uart_in }];
-set_property -dict { PACKAGE_PIN P24    IOSTANDARD LVCMOS33} [get_ports { uart_out }];
-set_property PULLUP true [get_ports {uart_in}]
-set_property PULLUP true [get_ports {uart_out}]
-set_property SLEW FAST [get_ports {uart_in}]
-set_property SLEW FAST [get_ports {uart_out}]
+## Button
+#set_property -dict "PACKAGE_PIN V17 IOSTANDARD LVCMOS18" [get_ports "BTN_X[0]"]
+#set_property -dict "PACKAGE_PIN W18 IOSTANDARD LVCMOS18" [get_ports "BTN_X[1]"]
+#set_property -dict "PACKAGE_PIN W19 IOSTANDARD LVCMOS18" [get_ports "BTN_X[2]"]
+#set_property -dict "PACKAGE_PIN W15 IOSTANDARD LVCMOS18" [get_ports "BTN_X[3]"]
+#set_property -dict "PACKAGE_PIN W16 IOSTANDARD LVCMOS18" [get_ports "BTN_X[4]"]
+#set_property -dict "PACKAGE_PIN V18 IOSTANDARD LVCMOS18" [get_ports "BTN_Y[0]"]
+#set_property -dict "PACKAGE_PIN V19 IOSTANDARD LVCMOS18" [get_ports "BTN_Y[1]"]
+#set_property -dict "PACKAGE_PIN V14 IOSTANDARD LVCMOS18" [get_ports "BTN_Y[2]"]
+#set_property -dict "PACKAGE_PIN W14 IOSTANDARD LVCMOS18" [get_ports "BTN_Y[3]"]
 
-# LED
-set_property -dict { PACKAGE_PIN M24   IOSTANDARD LVCMOS33 } [get_ports { seg_clk }];
-set_property -dict { PACKAGE_PIN M20   IOSTANDARD LVCMOS33 } [get_ports { seg_clr_n }];
-set_property -dict { PACKAGE_PIN L24   IOSTANDARD LVCMOS33 } [get_ports { seg_do }];
-set_property -dict { PACKAGE_PIN R18   IOSTANDARD LVCMOS33 } [get_ports { seg_en }];
+## LED
+#set_property -dict { PACKAGE_PIN M25   IOSTANDARD LVCMOS33 } [get_ports { SEG_CLK }];
+#set_property -dict { PACKAGE_PIN M20   IOSTANDARD LVCMOS33 } [get_ports { SEG_CLR_N }];
+#set_property -dict { PACKAGE_PIN L24   IOSTANDARD LVCMOS33 } [get_ports { SEG_DO }];
+#set_property -dict { PACKAGE_PIN R18   IOSTANDARD LVCMOS33 } [get_ports { SEG_EN }];
 
-##flash
+## SEGLED
+#set_property -dict "PACKAGE_PIN M24 IOSTANDARD LVCMOS33" [get_ports "SEGLED_CLK"]
+#set_property -dict "PACKAGE_PIN M20 IOSTANDARD LVCMOS33" [get_ports "SEGLED_CLR"]
+#set_property -dict "PACKAGE_PIN L24 IOSTANDARD LVCMOS33" [get_ports "SEGLED_DO"]
+#set_property -dict "PACKAGE_PIN R18 IOSTANDARD LVCMOS33" [get_ports "SEGLED_PEN"]
+#set_property -dict "PACKAGE_PIN R18 IOSTANDARD LVCMOS33" [get_ports "SEGLED_PEN"]
+
+## VGA
+#set_property -dict "PACKAGE_PIN T20 IOSTANDARD LVCMOS33" [get_ports "VGA_B[0]"]
+#set_property -dict "PACKAGE_PIN R20 IOSTANDARD LVCMOS33" [get_ports "VGA_B[1]"]
+#set_property -dict "PACKAGE_PIN T22 IOSTANDARD LVCMOS33" [get_ports "VGA_B[2]"]
+#set_property -dict "PACKAGE_PIN T23 IOSTANDARD LVCMOS33" [get_ports "VGA_B[3]"]
+#set_property -dict "PACKAGE_PIN R22 IOSTANDARD LVCMOS33" [get_ports "VGA_G[0]"]
+#set_property -dict "PACKAGE_PIN R23 IOSTANDARD LVCMOS33" [get_ports "VGA_G[1]"]
+#set_property -dict "PACKAGE_PIN T24 IOSTANDARD LVCMOS33" [get_ports "VGA_G[2]"]
+#set_property -dict "PACKAGE_PIN T25 IOSTANDARD LVCMOS33" [get_ports "VGA_G[3]"]
+#set_property -dict "PACKAGE_PIN N21 IOSTANDARD LVCMOS33" [get_ports "VGA_R[0]"]
+#set_property -dict "PACKAGE_PIN N22 IOSTANDARD LVCMOS33" [get_ports "VGA_R[1]"]
+#set_property -dict "PACKAGE_PIN R21 IOSTANDARD LVCMOS33" [get_ports "VGA_R[2]"]
+#set_property -dict "PACKAGE_PIN P21 IOSTANDARD LVCMOS33" [get_ports "VGA_R[3]"]
+#set_property -dict "PACKAGE_PIN M22 IOSTANDARD LVCMOS33" [get_ports "HS"]
+#set_property -dict "PACKAGE_PIN M21 IOSTANDARD LVCMOS33" [get_ports "VS"]
+
+#set_property slew "FAST" [get_ports "VGA_B[0]"]
+#set_property slew "FAST" [get_ports "VGA_B[1]"]
+#set_property slew "FAST" [get_ports "VGA_B[2]"]
+#set_property slew "FAST" [get_ports "VGA_B[3]"]
+#set_property slew "FAST" [get_ports "VGA_G[0]"]
+#set_property slew "FAST" [get_ports "VGA_G[1]"]
+#set_property slew "FAST" [get_ports "VGA_G[2]"]
+#set_property slew "FAST" [get_ports "VGA_G[3]"]
+#set_property slew "FAST" [get_ports "VGA_R[0]"]
+#set_property slew "FAST" [get_ports "VGA_R[1]"]
+#set_property slew "FAST" [get_ports "VGA_R[2]"]
+#set_property slew "FAST" [get_ports "VGA_R[3]"]
+#set_property slew "FAST" [get_ports "HS"]
+#set_property slew "FAST" [get_ports "VS"]
+
+## UART
+#set_property -dict { PACKAGE_PIN L25    IOSTANDARD LVCMOS33 PULLTYPE PULLUP} [get_ports { UART_RX }];
+#set_property -dict { PACKAGE_PIN P24    IOSTANDARD LVCMOS33 PULLTYPE PULLUP} [get_ports { UART_TX }];
+
+#set_property -dict { PACKAGE_PIN L25    IOSTANDARD LVCMOS33} [get_ports { UART_RX }];
+#set_property -dict { PACKAGE_PIN P24    IOSTANDARD LVCMOS33} [get_ports { UART_TX }];
+#set_property PULLUP true [get_ports {UART_RX}]
+#set_property PULLUP true [get_ports {UART_TX}]
+#set_property SLEW FAST [get_ports {UART_RX}]
+#set_property SLEW FAST [get_ports {UART_TX}]
+
+## Flash
 #set_property -dict { PACKAGE_PIN C12  IOSTANDARD  LVCMOS33 SLEW = FAST }    [get_ports { BPI_A[0]      }];
 #set_property -dict { PACKAGE_PIN J11  IOSTANDARD  LVCMOS33 SLEW = FAST }    [get_ports { BPI_A[1]      }];
 #set_property -dict { PACKAGE_PIN H13  IOSTANDARD  LVCMOS33 SLEW = FAST }    [get_ports { BPI_A[2]      }];
@@ -104,222 +157,262 @@ set_property -dict { PACKAGE_PIN R18   IOSTANDARD LVCMOS33 } [get_ports { seg_en
 #set_property -dict { PACKAGE_PIN E11  IOSTANDARD  LVCMOS33 SLEW = FAST }    [get_ports { BPI_RYNBY[1]  }];
 #set_property -dict { PACKAGE_PIN G10  IOSTANDARD  LVCMOS33 SLEW = FAST }    [get_ports { BPI_WEN       }];
 
+## SRAM
+#set_property -dict { PACKAGE_PIN E15  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_CE_N        }];
+#set_property -dict { PACKAGE_PIN D20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[0]     }];
+#set_property -dict { PACKAGE_PIN D18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[1]     }];
+#set_property -dict { PACKAGE_PIN E16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[2]     }];
+#set_property -dict { PACKAGE_PIN E18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[3]     }];
+#set_property -dict { PACKAGE_PIN E17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[4]     }];
+#set_property -dict { PACKAGE_PIN E20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[5]     }];
+#set_property -dict { PACKAGE_PIN F15  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[6]     }];
+#set_property -dict { PACKAGE_PIN F18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[7]     }];
+#set_property -dict { PACKAGE_PIN H19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[8]     }];
+#set_property -dict { PACKAGE_PIN J16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[9]     }];
+#set_property -dict { PACKAGE_PIN J18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[10]    }];
+#set_property -dict { PACKAGE_PIN J20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[11]    }];
+#set_property -dict { PACKAGE_PIN G19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[12]    }];
+#set_property -dict { PACKAGE_PIN H17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[13]    }];
+#set_property -dict { PACKAGE_PIN F20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[14]    }];
+#set_property -dict { PACKAGE_PIN G17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[15]    }];
+#set_property -dict { PACKAGE_PIN F17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[16]    }];
+#set_property -dict { PACKAGE_PIN F19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[17]    }];
+#set_property -dict { PACKAGE_PIN H18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[18]    }];
+#set_property -dict { PACKAGE_PIN G20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_ADDR[19]    }];
+#set_property -dict { PACKAGE_PIN M16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[0]     }];
+#set_property -dict { PACKAGE_PIN L19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[1]     }];
+#set_property -dict { PACKAGE_PIN L17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[2]     }];
+#set_property -dict { PACKAGE_PIN K18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[3]     }];
+#set_property -dict { PACKAGE_PIN L18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[4]     }];
+#set_property -dict { PACKAGE_PIN K17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[5]     }];
+#set_property -dict { PACKAGE_PIN K16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[6]     }];
+#set_property -dict { PACKAGE_PIN M17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[7]     }];
+#set_property -dict { PACKAGE_PIN H26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[8]     }];
+#set_property -dict { PACKAGE_PIN H23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[9]     }];
+#set_property -dict { PACKAGE_PIN H21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[10]    }];
+#set_property -dict { PACKAGE_PIN J26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[11]    }];
+#set_property -dict { PACKAGE_PIN L20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[12]    }];
+#set_property -dict { PACKAGE_PIN J19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[13]    }];
+#set_property -dict { PACKAGE_PIN J21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[14]    }];
+#set_property -dict { PACKAGE_PIN K21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[15]    }];
+#set_property -dict { PACKAGE_PIN B26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[16]    }];
+#set_property -dict { PACKAGE_PIN C22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[17]    }];
+#set_property -dict { PACKAGE_PIN A24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[18]    }];
+#set_property -dict { PACKAGE_PIN A23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[19]    }];
+#set_property -dict { PACKAGE_PIN E22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[20]    }];
+#set_property -dict { PACKAGE_PIN E23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[21]    }];
+#set_property -dict { PACKAGE_PIN C24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[22]    }];
+#set_property -dict { PACKAGE_PIN D23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[23]    }];
+#set_property -dict { PACKAGE_PIN B20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[24]    }];
+#set_property -dict { PACKAGE_PIN A20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[25]    }];
+#set_property -dict { PACKAGE_PIN C21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[26]    }];
+#set_property -dict { PACKAGE_PIN B21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[27]    }];
+#set_property -dict { PACKAGE_PIN A22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[28]    }];
+#set_property -dict { PACKAGE_PIN B22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[29]    }];
+#set_property -dict { PACKAGE_PIN D21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[30]    }];
+#set_property -dict { PACKAGE_PIN E21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[31]    }];
+#set_property -dict { PACKAGE_PIN H24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[32]    }];
+#set_property -dict { PACKAGE_PIN E26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[33]    }];
+#set_property -dict { PACKAGE_PIN G25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[34]    }];
+#set_property -dict { PACKAGE_PIN F24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[35]    }];
+#set_property -dict { PACKAGE_PIN F25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[36]    }];
+#set_property -dict { PACKAGE_PIN G24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[37]    }];
+#set_property -dict { PACKAGE_PIN G21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[38]    }];
+#set_property -dict { PACKAGE_PIN G26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[39]    }];
+#set_property -dict { PACKAGE_PIN F22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[40]    }];
+#set_property -dict { PACKAGE_PIN G22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[41]    }];
+#set_property -dict { PACKAGE_PIN C26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[42]    }];
+#set_property -dict { PACKAGE_PIN D24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[43]    }];
+#set_property -dict { PACKAGE_PIN E25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[44]    }];
+#set_property -dict { PACKAGE_PIN F23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[45]    }];
+#set_property -dict { PACKAGE_PIN D25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[46]    }];
+#set_property -dict { PACKAGE_PIN D26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_DATA[47]    }];
+#set_property -dict { PACKAGE_PIN D19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_OE_N        }];
+#set_property -dict { PACKAGE_PIN J15  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { SRAM_WE_N        }];
 
-set_property -dict { PACKAGE_PIN E15  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_ce_n        }];
-set_property -dict { PACKAGE_PIN D20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[0]     }];
-set_property -dict { PACKAGE_PIN D18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[1]     }];
-set_property -dict { PACKAGE_PIN E16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[2]     }];
-set_property -dict { PACKAGE_PIN E18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[3]     }];
-set_property -dict { PACKAGE_PIN E17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[4]     }];
-set_property -dict { PACKAGE_PIN E20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[5]     }];
-set_property -dict { PACKAGE_PIN F15  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[6]     }];
-set_property -dict { PACKAGE_PIN F18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[7]     }];
-set_property -dict { PACKAGE_PIN H19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[8]     }];
-set_property -dict { PACKAGE_PIN J16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[9]     }];
-set_property -dict { PACKAGE_PIN J18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[10]    }];
-set_property -dict { PACKAGE_PIN J20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[11]    }];
-set_property -dict { PACKAGE_PIN G19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[12]    }];
-set_property -dict { PACKAGE_PIN H17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[13]    }];
-set_property -dict { PACKAGE_PIN F20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[14]    }];
-set_property -dict { PACKAGE_PIN G17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[15]    }];
-set_property -dict { PACKAGE_PIN F17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[16]    }];
-set_property -dict { PACKAGE_PIN F19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[17]    }];
-set_property -dict { PACKAGE_PIN H18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[18]    }];
-set_property -dict { PACKAGE_PIN G20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_addr[19]    }];
-set_property -dict { PACKAGE_PIN M16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[0]     }];
-set_property -dict { PACKAGE_PIN L19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[1]     }];
-set_property -dict { PACKAGE_PIN L17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[2]     }];
-set_property -dict { PACKAGE_PIN K18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[3]     }];
-set_property -dict { PACKAGE_PIN L18  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[4]     }];
-set_property -dict { PACKAGE_PIN K17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[5]     }];
-set_property -dict { PACKAGE_PIN K16  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[6]     }];
-set_property -dict { PACKAGE_PIN M17  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[7]     }];
-set_property -dict { PACKAGE_PIN H26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[8]     }];
-set_property -dict { PACKAGE_PIN H23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[9]     }];
-set_property -dict { PACKAGE_PIN H21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[10]    }];
-set_property -dict { PACKAGE_PIN J26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[11]    }];
-set_property -dict { PACKAGE_PIN L20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[12]    }];
-set_property -dict { PACKAGE_PIN J19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[13]    }];
-set_property -dict { PACKAGE_PIN J21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[14]    }];
-set_property -dict { PACKAGE_PIN K21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[15]    }];
-set_property -dict { PACKAGE_PIN B26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[16]    }];
-set_property -dict { PACKAGE_PIN C22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[17]    }];
-set_property -dict { PACKAGE_PIN A24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[18]    }];
-set_property -dict { PACKAGE_PIN A23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[19]    }];
-set_property -dict { PACKAGE_PIN E22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[20]    }];
-set_property -dict { PACKAGE_PIN E23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[21]    }];
-set_property -dict { PACKAGE_PIN C24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[22]    }];
-set_property -dict { PACKAGE_PIN D23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[23]    }];
-set_property -dict { PACKAGE_PIN B20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[24]    }];
-set_property -dict { PACKAGE_PIN A20  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[25]    }];
-set_property -dict { PACKAGE_PIN C21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[26]    }];
-set_property -dict { PACKAGE_PIN B21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[27]    }];
-set_property -dict { PACKAGE_PIN A22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[28]    }];
-set_property -dict { PACKAGE_PIN B22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[29]    }];
-set_property -dict { PACKAGE_PIN D21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[30]    }];
-set_property -dict { PACKAGE_PIN E21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[31]    }];
-set_property -dict { PACKAGE_PIN H24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[32]    }];
-set_property -dict { PACKAGE_PIN E26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[33]    }];
-set_property -dict { PACKAGE_PIN G25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[34]    }];
-set_property -dict { PACKAGE_PIN F24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[35]    }];
-set_property -dict { PACKAGE_PIN F25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[36]    }];
-set_property -dict { PACKAGE_PIN G24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[37]    }];
-set_property -dict { PACKAGE_PIN G21  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[38]    }];
-set_property -dict { PACKAGE_PIN G26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[39]    }];
-set_property -dict { PACKAGE_PIN F22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[40]    }];
-set_property -dict { PACKAGE_PIN G22  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[41]    }];
-set_property -dict { PACKAGE_PIN C26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[42]    }];
-set_property -dict { PACKAGE_PIN D24  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[43]    }];
-set_property -dict { PACKAGE_PIN E25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[44]    }];
-set_property -dict { PACKAGE_PIN F23  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[45]    }];
-set_property -dict { PACKAGE_PIN D25  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[46]    }];
-set_property -dict { PACKAGE_PIN D26  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_data[47]    }];
-set_property -dict { PACKAGE_PIN D19  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_oe_n        }];
-set_property -dict { PACKAGE_PIN J15  IOSTANDARD  LVCMOS33 SLEW FAST DRIVE 4 } [get_ports { sram_we_n        }];
+#set_property  SLEW FAST  [get_ports { SRAM_CE_N        }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[0]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[1]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[2]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[3]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[4]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[5]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[6]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[7]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[8]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[9]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[10]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[11]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[12]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[13]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[14]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[15]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[16]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[17]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[18]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_ADDR[19]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[0]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[1]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[2]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[3]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[4]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[5]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[6]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[7]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[8]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[9]     }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[10]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[11]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[12]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[13]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[14]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[15]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[16]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[17]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[18]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[19]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[20]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[21]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[22]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[23]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[24]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[25]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[26]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[27]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[28]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[29]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[30]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[31]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[32]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[33]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[34]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[35]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[36]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[37]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[38]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[39]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[40]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[41]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[42]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[43]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[44]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[45]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[46]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_DATA[47]    }];
+#set_property  SLEW FAST  [get_ports { SRAM_OE_N        }];
+#set_property  SLEW FAST  [get_ports { SRAM_WE_N        }];
 
-set_property  SLEW FAST  [get_ports { sram_ce_n        }];
-set_property  SLEW FAST  [get_ports { sram_addr[0]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[1]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[2]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[3]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[4]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[5]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[6]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[7]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[8]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[9]     }];
-set_property  SLEW FAST  [get_ports { sram_addr[10]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[11]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[12]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[13]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[14]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[15]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[16]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[17]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[18]    }];
-set_property  SLEW FAST  [get_ports { sram_addr[19]    }];
-set_property  SLEW FAST  [get_ports { sram_data[0]     }];
-set_property  SLEW FAST  [get_ports { sram_data[1]     }];
-set_property  SLEW FAST  [get_ports { sram_data[2]     }];
-set_property  SLEW FAST  [get_ports { sram_data[3]     }];
-set_property  SLEW FAST  [get_ports { sram_data[4]     }];
-set_property  SLEW FAST  [get_ports { sram_data[5]     }];
-set_property  SLEW FAST  [get_ports { sram_data[6]     }];
-set_property  SLEW FAST  [get_ports { sram_data[7]     }];
-set_property  SLEW FAST  [get_ports { sram_data[8]     }];
-set_property  SLEW FAST  [get_ports { sram_data[9]     }];
-set_property  SLEW FAST  [get_ports { sram_data[10]    }];
-set_property  SLEW FAST  [get_ports { sram_data[11]    }];
-set_property  SLEW FAST  [get_ports { sram_data[12]    }];
-set_property  SLEW FAST  [get_ports { sram_data[13]    }];
-set_property  SLEW FAST  [get_ports { sram_data[14]    }];
-set_property  SLEW FAST  [get_ports { sram_data[15]    }];
-set_property  SLEW FAST  [get_ports { sram_data[16]    }];
-set_property  SLEW FAST  [get_ports { sram_data[17]    }];
-set_property  SLEW FAST  [get_ports { sram_data[18]    }];
-set_property  SLEW FAST  [get_ports { sram_data[19]    }];
-set_property  SLEW FAST  [get_ports { sram_data[20]    }];
-set_property  SLEW FAST  [get_ports { sram_data[21]    }];
-set_property  SLEW FAST  [get_ports { sram_data[22]    }];
-set_property  SLEW FAST  [get_ports { sram_data[23]    }];
-set_property  SLEW FAST  [get_ports { sram_data[24]    }];
-set_property  SLEW FAST  [get_ports { sram_data[25]    }];
-set_property  SLEW FAST  [get_ports { sram_data[26]    }];
-set_property  SLEW FAST  [get_ports { sram_data[27]    }];
-set_property  SLEW FAST  [get_ports { sram_data[28]    }];
-set_property  SLEW FAST  [get_ports { sram_data[29]    }];
-set_property  SLEW FAST  [get_ports { sram_data[30]    }];
-set_property  SLEW FAST  [get_ports { sram_data[31]    }];
-set_property  SLEW FAST  [get_ports { sram_data[32]    }];
-set_property  SLEW FAST  [get_ports { sram_data[33]    }];
-set_property  SLEW FAST  [get_ports { sram_data[34]    }];
-set_property  SLEW FAST  [get_ports { sram_data[35]    }];
-set_property  SLEW FAST  [get_ports { sram_data[36]    }];
-set_property  SLEW FAST  [get_ports { sram_data[37]    }];
-set_property  SLEW FAST  [get_ports { sram_data[38]    }];
-set_property  SLEW FAST  [get_ports { sram_data[39]    }];
-set_property  SLEW FAST  [get_ports { sram_data[40]    }];
-set_property  SLEW FAST  [get_ports { sram_data[41]    }];
-set_property  SLEW FAST  [get_ports { sram_data[42]    }];
-set_property  SLEW FAST  [get_ports { sram_data[43]    }];
-set_property  SLEW FAST  [get_ports { sram_data[44]    }];
-set_property  SLEW FAST  [get_ports { sram_data[45]    }];
-set_property  SLEW FAST  [get_ports { sram_data[46]    }];
-set_property  SLEW FAST  [get_ports { sram_data[47]    }];
-set_property  SLEW FAST  [get_ports { sram_oe_n        }];
-set_property  SLEW FAST  [get_ports { sram_we_n        }];
+#set_property DRIVE 4 [get_ports { SRAM_CE_N        }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[0]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[1]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[2]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[3]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[4]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[5]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[6]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[7]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[8]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[9]     }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[10]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[11]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[12]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[13]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[14]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[15]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[16]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[17]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[18]    }];
+#set_property DRIVE 4 [get_ports { SRAM_ADDR[19]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[0]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[1]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[2]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[3]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[4]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[5]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[6]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[7]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[8]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[9]     }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[10]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[11]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[12]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[13]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[14]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[15]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[16]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[17]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[18]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[19]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[20]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[21]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[22]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[23]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[24]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[25]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[26]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[27]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[28]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[29]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[30]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[31]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[32]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[33]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[34]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[35]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[36]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[37]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[38]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[39]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[40]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[41]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[42]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[43]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[44]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[45]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[46]    }];
+#set_property DRIVE 4 [get_ports { SRAM_DATA[47]    }];
+#set_property DRIVE 4 [get_ports { SRAM_OE_N        }];
+#set_property DRIVE 4 [get_ports { SRAM_WE_N        }];
 
+## Ethernet
+#set_property -dict "PACKAGE_PIN AC14 IOSTANDARD LVCMOS18" [get_ports "ETH_PHY_MDC"]
+#set_property -dict "PACKAGE_PIN AD14 IOSTANDARD LVCMOS18" [get_ports "ETH_PHY_MDIO"]
+#set_property -dict "PACKAGE_PIN N23 IOSTANDARD LVCMOS33" [get_ports "ETH_PHY_RST_N"]
+#set_property -dict "PACKAGE_PIN AB17 IOSTANDARD LVCMOS18" [get_ports "ETH_RXC"]
+#set_property -dict "PACKAGE_PIN AC17 IOSTANDARD LVCMOS18" [get_ports "ETH_RX_EN"]
+#set_property -dict "PACKAGE_PIN AD20 IOSTANDARD LVCMOS18" [get_ports "ETH_RXD[0]"]
+#set_property -dict "PACKAGE_PIN AE20 IOSTANDARD LVCMOS18" [get_ports "ETH_RXD[1]"]
+#set_property -dict "PACKAGE_PIN AA19 IOSTANDARD LVCMOS18" [get_ports "ETH_RXD[2]"]
+#set_property -dict "PACKAGE_PIN AA20 IOSTANDARD LVCMOS18" [get_ports "ETH_RXD[3]"]
+#set_property -dict "PACKAGE_PIN AB19 IOSTANDARD LVCMOS18" [get_ports "ETH_TXD[0]"]
+#set_property -dict "PACKAGE_PIN AB20 IOSTANDARD LVCMOS18" [get_ports "ETH_TXD[1]"]
+#set_property -dict "PACKAGE_PIN Y17 IOSTANDARD LVCMOS18" [get_ports "ETH_TXD[2]"]
+#set_property -dict "PACKAGE_PIN Y18 IOSTANDARD LVCMOS18" [get_ports "ETH_TXD[3]"]
+#set_property -dict "PACKAGE_PIN AD19 IOSTANDARD LVCMOS18" [get_ports "ETH_TX_EN"]
+#set_property -dict "PACKAGE_PIN AC19 IOSTANDARD LVCMOS18" [get_ports "ETH_TXC"]
 
+#set_property drive "8" [get_ports "ETH_TXC"]
+#set_property drive "8" [get_ports "ETH_TX_EN"]
+#set_property drive "8" [get_ports "ETH_TXD[3]"]
+#set_property drive "8" [get_ports "ETH_TXD[2]"]
+#set_property drive "8" [get_ports "ETH_TXD[1]"]
+#set_property drive "8" [get_ports "ETH_TXD[0]"]
+#set_property drive "8" [get_ports "ETH_RXD[3]"]
+#set_property drive "8" [get_ports "ETH_RXD[2]"]
+#set_property drive "8" [get_ports "ETH_RXD[1]"]
+#set_property drive "8" [get_ports "ETH_RXD[0]"]
+#set_property drive "8" [get_ports "ETH_RX_EN"]
+#set_property drive "8" [get_ports "ETH_RXC"]
+#set_property drive "8" [get_ports "ETH_PHY_RST_N"]
+#set_property drive "8" [get_ports "ETH_PHY_MDIO"]
+#set_property drive "8" [get_ports "ETH_PHY_MDC"]
 
-set_property DRIVE 4 [get_ports { sram_ce_n        }];
-set_property DRIVE 4 [get_ports { sram_addr[0]     }];
-set_property DRIVE 4 [get_ports { sram_addr[1]     }];
-set_property DRIVE 4 [get_ports { sram_addr[2]     }];
-set_property DRIVE 4 [get_ports { sram_addr[3]     }];
-set_property DRIVE 4 [get_ports { sram_addr[4]     }];
-set_property DRIVE 4 [get_ports { sram_addr[5]     }];
-set_property DRIVE 4 [get_ports { sram_addr[6]     }];
-set_property DRIVE 4 [get_ports { sram_addr[7]     }];
-set_property DRIVE 4 [get_ports { sram_addr[8]     }];
-set_property DRIVE 4 [get_ports { sram_addr[9]     }];
-set_property DRIVE 4 [get_ports { sram_addr[10]    }];
-set_property DRIVE 4 [get_ports { sram_addr[11]    }];
-set_property DRIVE 4 [get_ports { sram_addr[12]    }];
-set_property DRIVE 4 [get_ports { sram_addr[13]    }];
-set_property DRIVE 4 [get_ports { sram_addr[14]    }];
-set_property DRIVE 4 [get_ports { sram_addr[15]    }];
-set_property DRIVE 4 [get_ports { sram_addr[16]    }];
-set_property DRIVE 4 [get_ports { sram_addr[17]    }];
-set_property DRIVE 4 [get_ports { sram_addr[18]    }];
-set_property DRIVE 4 [get_ports { sram_addr[19]    }];
-set_property DRIVE 4 [get_ports { sram_data[0]     }];
-set_property DRIVE 4 [get_ports { sram_data[1]     }];
-set_property DRIVE 4 [get_ports { sram_data[2]     }];
-set_property DRIVE 4 [get_ports { sram_data[3]     }];
-set_property DRIVE 4 [get_ports { sram_data[4]     }];
-set_property DRIVE 4 [get_ports { sram_data[5]     }];
-set_property DRIVE 4 [get_ports { sram_data[6]     }];
-set_property DRIVE 4 [get_ports { sram_data[7]     }];
-set_property DRIVE 4 [get_ports { sram_data[8]     }];
-set_property DRIVE 4 [get_ports { sram_data[9]     }];
-set_property DRIVE 4 [get_ports { sram_data[10]    }];
-set_property DRIVE 4 [get_ports { sram_data[11]    }];
-set_property DRIVE 4 [get_ports { sram_data[12]    }];
-set_property DRIVE 4 [get_ports { sram_data[13]    }];
-set_property DRIVE 4 [get_ports { sram_data[14]    }];
-set_property DRIVE 4 [get_ports { sram_data[15]    }];
-set_property DRIVE 4 [get_ports { sram_data[16]    }];
-set_property DRIVE 4 [get_ports { sram_data[17]    }];
-set_property DRIVE 4 [get_ports { sram_data[18]    }];
-set_property DRIVE 4 [get_ports { sram_data[19]    }];
-set_property DRIVE 4 [get_ports { sram_data[20]    }];
-set_property DRIVE 4 [get_ports { sram_data[21]    }];
-set_property DRIVE 4 [get_ports { sram_data[22]    }];
-set_property DRIVE 4 [get_ports { sram_data[23]    }];
-set_property DRIVE 4 [get_ports { sram_data[24]    }];
-set_property DRIVE 4 [get_ports { sram_data[25]    }];
-set_property DRIVE 4 [get_ports { sram_data[26]    }];
-set_property DRIVE 4 [get_ports { sram_data[27]    }];
-set_property DRIVE 4 [get_ports { sram_data[28]    }];
-set_property DRIVE 4 [get_ports { sram_data[29]    }];
-set_property DRIVE 4 [get_ports { sram_data[30]    }];
-set_property DRIVE 4 [get_ports { sram_data[31]    }];
-set_property DRIVE 4 [get_ports { sram_data[32]    }];
-set_property DRIVE 4 [get_ports { sram_data[33]    }];
-set_property DRIVE 4 [get_ports { sram_data[34]    }];
-set_property DRIVE 4 [get_ports { sram_data[35]    }];
-set_property DRIVE 4 [get_ports { sram_data[36]    }];
-set_property DRIVE 4 [get_ports { sram_data[37]    }];
-set_property DRIVE 4 [get_ports { sram_data[38]    }];
-set_property DRIVE 4 [get_ports { sram_data[39]    }];
-set_property DRIVE 4 [get_ports { sram_data[40]    }];
-set_property DRIVE 4 [get_ports { sram_data[41]    }];
-set_property DRIVE 4 [get_ports { sram_data[42]    }];
-set_property DRIVE 4 [get_ports { sram_data[43]    }];
-set_property DRIVE 4 [get_ports { sram_data[44]    }];
-set_property DRIVE 4 [get_ports { sram_data[45]    }];
-set_property DRIVE 4 [get_ports { sram_data[46]    }];
-set_property DRIVE 4 [get_ports { sram_data[47]    }];
-set_property DRIVE 4 [get_ports { sram_oe_n        }];
-set_property DRIVE 4 [get_ports { sram_we_n        }];
+#set_property slew "FAST" [get_ports "ETH_PHY_MDC"]
+#set_property slew "FAST" [get_ports "ETH_PHY_MDIO"]
+#set_property slew "FAST" [get_ports "ETH_TXD[0]"]
+#set_property slew "FAST" [get_ports "ETH_TXD[1]"]
+#set_property slew "FAST" [get_ports "ETH_TXD[2]"]
+#set_property slew "FAST" [get_ports "ETH_TXD[3]"]
+#set_property slew "FAST" [get_ports "ETH_TX_EN"]
+#set_property slew "FAST" [get_ports "ETH_TXC"]
 
